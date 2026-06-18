@@ -1,10 +1,14 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, Redirect } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import { Layout } from "@/components/layout";
+import { useAuth } from "@/hooks/use-auth";
 
+import Landing from "@/pages/landing";
+import Login from "@/pages/login";
+import Signup from "@/pages/signup";
 import Dashboard from "@/pages/dashboard";
 import Coding from "@/pages/coding";
 import CodingQuestion from "@/pages/coding-question";
@@ -31,29 +35,42 @@ const queryClient = new QueryClient({
   },
 });
 
-function Router() {
+function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
+  const { isAuthenticated } = useAuth();
+  if (!isAuthenticated) return <Redirect to="/login" />;
   return (
     <Layout>
-      <Switch>
-        <Route path="/" component={Dashboard} />
-        <Route path="/coding" component={Coding} />
-        <Route path="/coding/:id" component={CodingQuestion} />
-        <Route path="/hr" component={Hr} />
-        <Route path="/aptitude" component={Aptitude} />
-        <Route path="/aptitude/:id" component={AptitudeTest} />
-        <Route path="/mock" component={Mock} />
-        <Route path="/mock/:id" component={MockSession} />
-        <Route path="/resume" component={Resume} />
-        <Route path="/jobs" component={Jobs} />
-        <Route path="/leaderboard" component={Leaderboard} />
-        <Route path="/roadmap" component={Roadmap} />
-        <Route path="/bookmarks" component={Bookmarks} />
-        <Route path="/tips" component={Tips} />
-        <Route path="/schedule" component={Schedule} />
-        <Route path="/profile" component={Profile} />
-        <Route component={NotFound} />
-      </Switch>
+      <Component />
     </Layout>
+  );
+}
+
+function Router() {
+  const { isAuthenticated } = useAuth();
+
+  return (
+    <Switch>
+      <Route path="/" component={Landing} />
+      <Route path="/login">{isAuthenticated ? <Redirect to="/dashboard" /> : <Login />}</Route>
+      <Route path="/signup">{isAuthenticated ? <Redirect to="/dashboard" /> : <Signup />}</Route>
+      <Route path="/dashboard"><ProtectedRoute component={Dashboard} /></Route>
+      <Route path="/coding"><ProtectedRoute component={Coding} /></Route>
+      <Route path="/coding/:id"><ProtectedRoute component={CodingQuestion} /></Route>
+      <Route path="/hr"><ProtectedRoute component={Hr} /></Route>
+      <Route path="/aptitude"><ProtectedRoute component={Aptitude} /></Route>
+      <Route path="/aptitude/:id"><ProtectedRoute component={AptitudeTest} /></Route>
+      <Route path="/mock"><ProtectedRoute component={Mock} /></Route>
+      <Route path="/mock/:id"><ProtectedRoute component={MockSession} /></Route>
+      <Route path="/resume"><ProtectedRoute component={Resume} /></Route>
+      <Route path="/jobs"><ProtectedRoute component={Jobs} /></Route>
+      <Route path="/leaderboard"><ProtectedRoute component={Leaderboard} /></Route>
+      <Route path="/roadmap"><ProtectedRoute component={Roadmap} /></Route>
+      <Route path="/bookmarks"><ProtectedRoute component={Bookmarks} /></Route>
+      <Route path="/tips"><ProtectedRoute component={Tips} /></Route>
+      <Route path="/schedule"><ProtectedRoute component={Schedule} /></Route>
+      <Route path="/profile"><ProtectedRoute component={Profile} /></Route>
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 

@@ -2,16 +2,21 @@ import { useGetLearningRoadmap } from "@workspace/api-client-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Circle, Map, BookOpen } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/page-header";
 
 export default function Roadmap() {
   const { data: roadmap, isLoading } = useGetLearningRoadmap();
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Learning Roadmap</h1>
-        <p className="text-muted-foreground mt-1">Your personalized path to interview readiness based on your target role.</p>
-      </div>
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <PageHeader
+        icon={<Map className="w-7 h-7 text-white" />}
+        title="Learning Roadmap"
+        description="Your personalized 8-week path to interview readiness based on your target role and skills."
+        gradient="from-indigo-600 via-violet-500 to-purple-500"
+        iconBg="bg-white/20"
+        badge="Personalized"
+      />
 
       {isLoading ? (
         <div className="text-center p-12 text-muted-foreground">Generating your personalized roadmap...</div>

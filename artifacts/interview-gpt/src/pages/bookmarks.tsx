@@ -3,8 +3,9 @@ import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookmarkMinus, Code2, Users, BrainCircuit } from "lucide-react";
+import { BookmarkMinus, Code2, Users, BrainCircuit, Bookmark } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { PageHeader } from "@/components/page-header";
 
 export default function Bookmarks() {
   const { data: bookmarks, isLoading, refetch } = useListBookmarks();
@@ -41,11 +42,15 @@ export default function Bookmarks() {
   if (isLoading) return <div className="p-8">Loading bookmarks...</div>;
 
   return (
-    <div className="p-8 max-w-5xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Saved Questions</h1>
-        <p className="text-muted-foreground mt-1">Review questions you've bookmarked for later.</p>
-      </div>
+    <div className="p-6 max-w-5xl mx-auto space-y-6">
+      <PageHeader
+        icon={<Bookmark className="w-7 h-7 text-white" />}
+        title="Saved Questions"
+        description="Review and revisit questions you've bookmarked for later practice."
+        gradient="from-slate-600 via-slate-500 to-gray-500"
+        iconBg="bg-white/20"
+        badge="Quick Review"
+      />
 
       {!bookmarks?.length ? (
         <Card className="border-dashed">

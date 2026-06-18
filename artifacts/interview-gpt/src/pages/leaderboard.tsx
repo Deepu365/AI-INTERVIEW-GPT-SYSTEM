@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Trophy, Medal, Award, UserCircle } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { PageHeader } from "@/components/page-header";
 
 export default function Leaderboard() {
   const [category, setCategory] = useState<"overall" | "coding" | "hr" | "aptitude">("overall");
@@ -21,16 +22,15 @@ export default function Leaderboard() {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-3 flex items-center justify-center gap-3">
-          <Trophy className="w-8 h-8 text-primary" />
-          Global Leaderboard
-        </h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          See how you stack up against top candidates preparing for their next big role.
-        </p>
-      </div>
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <PageHeader
+        icon={<Trophy className="w-7 h-7 text-white" />}
+        title="Global Leaderboard"
+        description="See how you stack up against top candidates preparing for their next big role."
+        gradient="from-amber-500 via-yellow-500 to-orange-400"
+        iconBg="bg-white/20"
+        badge="Live Rankings"
+      />
 
       <Tabs value={category} onValueChange={(v: any) => setCategory(v)} className="w-full">
         <TabsList className="grid w-full grid-cols-4 max-w-2xl mx-auto mb-8">

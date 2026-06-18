@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { FileText, CheckCircle2, XCircle, AlertCircle, Upload, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { PageHeader } from "@/components/page-header";
 
 export default function Resume() {
   const { data: resumes, isLoading, refetch } = useListResumes();
@@ -38,15 +39,19 @@ export default function Resume() {
   };
 
   return (
-    <div className="p-8 max-w-6xl mx-auto flex flex-col lg:flex-row gap-8">
+    <div className="p-6 max-w-6xl mx-auto space-y-6">
+      <PageHeader
+        icon={<FileText className="w-7 h-7 text-white" />}
+        title="Resume Analyzer"
+        description="Get an instant ATS score, keyword analysis, gap identification and targeted feedback."
+        gradient="from-rose-600 via-pink-500 to-fuchsia-500"
+        iconBg="bg-white/20"
+        badge="ATS Scoring"
+      />
+      <div className="flex flex-col lg:flex-row gap-8">
       {/* Upload/Paste Section */}
       <div className="w-full lg:w-1/2 space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Resume Analyzer</h1>
-          <p className="text-muted-foreground mt-1">Get an instant ATS score and targeted feedback.</p>
-        </div>
-
-        <Card className="border-primary/20 shadow-sm">
+        <Card className="border-rose-200 shadow-sm">
           <CardHeader className="bg-primary/5 pb-4">
             <CardTitle className="text-lg flex items-center gap-2">
               <Upload className="w-5 h-5 text-primary" />
@@ -157,6 +162,7 @@ export default function Resume() {
             ))}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Search, Code2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { PageHeader } from "@/components/page-header";
 
 export default function Coding() {
   const [topic, setTopic] = useState<string>("all");
@@ -19,13 +20,15 @@ export default function Coding() {
   const { data: topics } = useGetCodingTopics();
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Coding Practice</h1>
-          <p className="text-muted-foreground mt-1">Master algorithms and data structures.</p>
-        </div>
-      </div>
+    <div className="p-6 max-w-6xl mx-auto">
+      <PageHeader
+        icon={<Code2 className="w-7 h-7 text-white" />}
+        title="Coding Practice"
+        description="Master algorithms, data structures and system design with 500+ problems."
+        gradient="from-blue-600 via-blue-500 to-cyan-500"
+        iconBg="bg-white/20"
+        badge="500+ Problems"
+      />
 
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <div className="relative flex-1">

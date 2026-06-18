@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Briefcase, Building, CheckCircle2, XCircle, Percent } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { PageHeader } from "@/components/page-header";
 
 export default function Jobs() {
   const { data: jobs, isLoading, refetch } = useListJobDescriptions();
@@ -31,11 +32,15 @@ export default function Jobs() {
   };
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Job Match Analyzer</h1>
-        <p className="text-muted-foreground mt-1">See how well your profile matches specific job descriptions.</p>
-      </div>
+    <div className="p-6 max-w-6xl mx-auto space-y-6">
+      <PageHeader
+        icon={<Briefcase className="w-7 h-7 text-white" />}
+        title="Job Match Analyzer"
+        description="Paste any job description to see your skill match %, gaps, and what to learn next."
+        gradient="from-cyan-600 via-blue-500 to-indigo-500"
+        iconBg="bg-white/20"
+        badge="Placement Predictor"
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1 space-y-4">

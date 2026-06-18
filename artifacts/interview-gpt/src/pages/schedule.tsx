@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar as CalendarIcon, Clock, Building, Plus, Trash2, MapPin, Video, Phone } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import { PageHeader } from "@/components/page-header";
 
 export default function Schedule() {
   const { data: schedule, isLoading, refetch } = useListSchedule();
@@ -63,11 +64,15 @@ export default function Schedule() {
   };
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Interview Schedule</h1>
-        <p className="text-muted-foreground mt-1">Keep track of your upcoming interviews and logistics.</p>
-      </div>
+    <div className="p-6 max-w-6xl mx-auto space-y-6">
+      <PageHeader
+        icon={<CalendarIcon className="w-7 h-7 text-white" />}
+        title="Interview Schedule"
+        description="Track upcoming interviews, add logistics notes and never miss an important date."
+        gradient="from-teal-600 via-emerald-500 to-green-500"
+        iconBg="bg-white/20"
+        badge="Planner"
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Add Form */}

@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { UserCircle, Briefcase, GraduationCap, Link as LinkIcon } from "lucide-react";
 import { useEffect } from "react";
+import { PageHeader } from "@/components/page-header";
 
 const profileSchema = z.object({
   name: z.string().min(2),
@@ -74,11 +75,15 @@ export default function Profile() {
   if (isLoading) return <div className="p-8">Loading profile...</div>;
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Your Profile</h1>
-        <p className="text-muted-foreground mt-1">Manage your personal information and career goals.</p>
-      </div>
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+      <PageHeader
+        icon={<UserCircle className="w-7 h-7 text-white" />}
+        title="Your Profile"
+        description="Manage your personal info, career goals and skills to personalize your experience."
+        gradient="from-violet-600 via-indigo-500 to-blue-500"
+        iconBg="bg-white/20"
+        badge="Account"
+      />
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

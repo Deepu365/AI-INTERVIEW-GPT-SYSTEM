@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Lightbulb, Tag } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PageHeader } from "@/components/page-header";
 
 export default function Tips() {
   const [category, setCategory] = useState<string>("technical");
@@ -20,11 +21,15 @@ export default function Tips() {
   ];
 
   return (
-    <div className="p-8 max-w-5xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Tips & Resources</h1>
-        <p className="text-muted-foreground mt-1">Curated advice from industry experts to help you ace your interviews.</p>
-      </div>
+    <div className="p-6 max-w-5xl mx-auto space-y-6">
+      <PageHeader
+        icon={<Lightbulb className="w-7 h-7 text-white" />}
+        title="Tips & Resources"
+        description="Curated expert advice and proven strategies to help you ace every interview round."
+        gradient="from-yellow-500 via-amber-500 to-orange-500"
+        iconBg="bg-white/20"
+        badge="Expert Curated"
+      />
 
       <Tabs value={category} onValueChange={setCategory} className="w-full">
         <TabsList className="mb-6 flex flex-wrap h-auto">

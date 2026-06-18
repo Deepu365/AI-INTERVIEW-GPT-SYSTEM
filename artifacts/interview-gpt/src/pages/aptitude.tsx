@@ -5,17 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BrainCircuit, Clock, Target, Play, History } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PageHeader } from "@/components/page-header";
 
 export default function Aptitude() {
   const { data: tests, isLoading: testsLoading } = useListAptitudeTests();
   const { data: history, isLoading: historyLoading } = useGetAptitudeHistory();
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Aptitude Tests</h1>
-        <p className="text-muted-foreground mt-1">Sharpen your quantitative and logical reasoning skills under time pressure.</p>
-      </div>
+    <div className="p-6 max-w-6xl mx-auto space-y-6">
+      <PageHeader
+        icon={<BrainCircuit className="w-7 h-7 text-white" />}
+        title="Aptitude Tests"
+        description="Sharpen quantitative, logical & verbal reasoning skills under timed pressure."
+        gradient="from-emerald-600 via-teal-500 to-cyan-500"
+        iconBg="bg-white/20"
+        badge="Timed Tests"
+      />
 
       <Tabs defaultValue="available" className="w-full">
         <TabsList className="mb-4">

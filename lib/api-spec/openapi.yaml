@@ -3,20 +3,46 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: InterviewGPT API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: profile
+    description: User profile operations
+  - name: dashboard
+    description: Dashboard and stats
+  - name: resumes
+    description: Resume management
+  - name: coding
+    description: Coding interview practice
+  - name: hr
+    description: HR interview practice
+  - name: aptitude
+    description: Aptitude tests
+  - name: mock-interviews
+    description: Mock interview sessions
+  - name: job-descriptions
+    description: Job description analysis
+  - name: leaderboard
+    description: Rankings and leaderboard
+  - name: bookmarks
+    description: Bookmarked questions
+  - name: tips
+    description: Interview tips and resources
+  - name: activity
+    description: Activity feed and notifications
+  - name: schedule
+    description: Interview schedule
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +50,1459 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # Profile
+  /profile:
+    get:
+      operationId: getProfile
+      tags: [profile]
+      summary: Get user profile
+      responses:
+        "200":
+          description: Profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+    patch:
+      operationId: updateProfile
+      tags: [profile]
+      summary: Update user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileUpdate"
+      responses:
+        "200":
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+
+  # Dashboard
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Get dashboard overview stats
+      responses:
+        "200":
+          description: Stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /dashboard/activity:
+    get:
+      operationId: getDashboardActivity
+      tags: [dashboard]
+      summary: Get recent activity feed
+      responses:
+        "200":
+          description: Recent activity list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityItem"
+
+  /dashboard/streak:
+    get:
+      operationId: getStudyStreak
+      tags: [dashboard]
+      summary: Get study streak info
+      responses:
+        "200":
+          description: Streak info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudyStreak"
+
+  /dashboard/performance:
+    get:
+      operationId: getPerformanceAnalytics
+      tags: [dashboard]
+      summary: Get performance analytics by category
+      responses:
+        "200":
+          description: Performance breakdown
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PerformanceAnalytics"
+
+  # Resumes
+  /resumes:
+    get:
+      operationId: listResumes
+      tags: [resumes]
+      summary: List all uploaded resumes
+      responses:
+        "200":
+          description: List of resumes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Resume"
+    post:
+      operationId: createResume
+      tags: [resumes]
+      summary: Upload and analyze a resume
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeInput"
+      responses:
+        "201":
+          description: Resume analyzed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resume"
+
+  /resumes/{id}:
+    get:
+      operationId: getResume
+      tags: [resumes]
+      summary: Get a specific resume analysis
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Resume
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resume"
+    delete:
+      operationId: deleteResume
+      tags: [resumes]
+      summary: Delete a resume
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /resumes/{id}/suggestions:
+    get:
+      operationId: getResumeSuggestions
+      tags: [resumes]
+      summary: Get improvement suggestions for a resume
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Suggestions list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ResumeSuggestion"
+
+  # Coding Questions
+  /coding/questions:
+    get:
+      operationId: listCodingQuestions
+      tags: [coding]
+      summary: List coding questions
+      parameters:
+        - name: difficulty
+          in: query
+          schema:
+            type: string
+            enum: [easy, medium, hard]
+        - name: topic
+          in: query
+          schema:
+            type: string
+        - name: company
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of coding questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CodingQuestion"
+
+  /coding/questions/{id}:
+    get:
+      operationId: getCodingQuestion
+      tags: [coding]
+      summary: Get a specific coding question
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Coding question
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CodingQuestion"
+
+  /coding/questions/{id}/submit:
+    post:
+      operationId: submitCodingSolution
+      tags: [coding]
+      summary: Submit a coding solution for evaluation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CodingSubmission"
+      responses:
+        "200":
+          description: Evaluation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CodingResult"
+
+  /coding/daily-challenge:
+    get:
+      operationId: getDailyChallenge
+      tags: [coding]
+      summary: Get today's daily coding challenge
+      responses:
+        "200":
+          description: Daily challenge question
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CodingQuestion"
+
+  /coding/topics:
+    get:
+      operationId: getCodingTopics
+      tags: [coding]
+      summary: Get available coding topics with question counts
+      responses:
+        "200":
+          description: Topics list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TopicSummary"
+
+  # HR Questions
+  /hr/questions:
+    get:
+      operationId: listHrQuestions
+      tags: [hr]
+      summary: List HR behavioral questions
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: HR questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HrQuestion"
+
+  /hr/questions/{id}:
+    get:
+      operationId: getHrQuestion
+      tags: [hr]
+      summary: Get a specific HR question
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: HR question
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HrQuestion"
+
+  /hr/questions/{id}/evaluate:
+    post:
+      operationId: evaluateHrAnswer
+      tags: [hr]
+      summary: Evaluate an HR answer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HrAnswerInput"
+      responses:
+        "200":
+          description: Evaluation feedback
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HrFeedback"
+
+  # Aptitude Tests
+  /aptitude/tests:
+    get:
+      operationId: listAptitudeTests
+      tags: [aptitude]
+      summary: List available aptitude tests
+      responses:
+        "200":
+          description: Tests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AptitudeTest"
+    post:
+      operationId: createAptitudeAttempt
+      tags: [aptitude]
+      summary: Start a new aptitude test attempt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AptitudeAttemptInput"
+      responses:
+        "201":
+          description: Attempt started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AptitudeAttempt"
+
+  /aptitude/attempts/{id}/submit:
+    post:
+      operationId: submitAptitudeAttempt
+      tags: [aptitude]
+      summary: Submit aptitude test answers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AptitudeAnswers"
+      responses:
+        "200":
+          description: Test results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AptitudeResult"
+
+  /aptitude/history:
+    get:
+      operationId: getAptitudeHistory
+      tags: [aptitude]
+      summary: Get aptitude test history
+      responses:
+        "200":
+          description: Attempt history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AptitudeAttemptSummary"
+
+  # Mock Interviews
+  /mock-interviews:
+    get:
+      operationId: listMockInterviews
+      tags: [mock-interviews]
+      summary: List past mock interviews
+      responses:
+        "200":
+          description: Mock interview sessions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MockInterview"
+    post:
+      operationId: startMockInterview
+      tags: [mock-interviews]
+      summary: Start a new mock interview session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MockInterviewInput"
+      responses:
+        "201":
+          description: Mock interview started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MockInterview"
+
+  /mock-interviews/{id}:
+    get:
+      operationId: getMockInterview
+      tags: [mock-interviews]
+      summary: Get mock interview details and report
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Mock interview
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MockInterview"
+
+  /mock-interviews/{id}/answer:
+    post:
+      operationId: submitMockAnswer
+      tags: [mock-interviews]
+      summary: Submit an answer during mock interview
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MockAnswerInput"
+      responses:
+        "200":
+          description: Next question or end
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MockInterviewStep"
+
+  /mock-interviews/{id}/complete:
+    post:
+      operationId: completeMockInterview
+      tags: [mock-interviews]
+      summary: Complete mock interview and get final report
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MockCompleteInput"
+      responses:
+        "200":
+          description: Final report
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MockInterview"
+
+  # Job Descriptions
+  /job-descriptions:
+    get:
+      operationId: listJobDescriptions
+      tags: [job-descriptions]
+      summary: List saved job descriptions
+      responses:
+        "200":
+          description: Job descriptions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/JobDescription"
+    post:
+      operationId: analyzeJobDescription
+      tags: [job-descriptions]
+      summary: Analyze a job description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JobDescriptionInput"
+      responses:
+        "201":
+          description: Analyzed job description
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobDescription"
+
+  /job-descriptions/{id}:
+    get:
+      operationId: getJobDescription
+      tags: [job-descriptions]
+      summary: Get a job description analysis
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Job description
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobDescription"
+    delete:
+      operationId: deleteJobDescription
+      tags: [job-descriptions]
+      summary: Delete a job description
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # Leaderboard
+  /leaderboard:
+    get:
+      operationId: getLeaderboard
+      tags: [leaderboard]
+      summary: Get global leaderboard
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+            enum: [overall, coding, hr, aptitude]
+      responses:
+        "200":
+          description: Leaderboard entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaderboardEntry"
+
+  # Bookmarks
+  /bookmarks:
+    get:
+      operationId: listBookmarks
+      tags: [bookmarks]
+      summary: List bookmarked questions
+      responses:
+        "200":
+          description: Bookmarks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Bookmark"
+    post:
+      operationId: createBookmark
+      tags: [bookmarks]
+      summary: Bookmark a question
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookmarkInput"
+      responses:
+        "201":
+          description: Bookmark created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bookmark"
+
+  /bookmarks/{id}:
+    delete:
+      operationId: deleteBookmark
+      tags: [bookmarks]
+      summary: Remove a bookmark
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # Tips
+  /tips:
+    get:
+      operationId: listTips
+      tags: [tips]
+      summary: List interview tips and resources
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Tips
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Tip"
+
+  # Learning Roadmap
+  /roadmap:
+    get:
+      operationId: getLearningRoadmap
+      tags: [dashboard]
+      summary: Get personalized learning roadmap
+      responses:
+        "200":
+          description: Learning roadmap
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LearningRoadmap"
+
+  # Interview Schedule
+  /schedule:
+    get:
+      operationId: listSchedule
+      tags: [schedule]
+      summary: List scheduled interviews
+      responses:
+        "200":
+          description: Scheduled interviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ScheduledInterview"
+    post:
+      operationId: createScheduledInterview
+      tags: [schedule]
+      summary: Schedule an interview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScheduledInterviewInput"
+      responses:
+        "201":
+          description: Scheduled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScheduledInterview"
+
+  /schedule/{id}:
+    delete:
+      operationId: deleteScheduledInterview
+      tags: [schedule]
+      summary: Delete a scheduled interview
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
         status:
           type: string
-      required:
-        - status
 
+    Profile:
+      type: object
+      required: [id, name, email, targetRole, experienceLevel, skills, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        targetRole:
+          type: string
+        experienceLevel:
+          type: string
+          enum: [fresher, junior, mid, senior]
+        skills:
+          type: array
+          items:
+            type: string
+        education:
+          type: ["string", "null"]
+        phone:
+          type: ["string", "null"]
+        bio:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    ProfileUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        targetRole:
+          type: string
+        experienceLevel:
+          type: string
+          enum: [fresher, junior, mid, senior]
+        skills:
+          type: array
+          items:
+            type: string
+        education:
+          type: string
+        phone:
+          type: string
+        bio:
+          type: string
+
+    DashboardStats:
+      type: object
+      required: [questionsAttempted, mockInterviewsCompleted, avgScore, studyStreak, atsScore, skillsAssessed, rankPosition, totalUsers]
+      properties:
+        questionsAttempted:
+          type: integer
+        mockInterviewsCompleted:
+          type: integer
+        avgScore:
+          type: number
+        studyStreak:
+          type: integer
+        atsScore:
+          type: ["number", "null"]
+        skillsAssessed:
+          type: integer
+        rankPosition:
+          type: integer
+        totalUsers:
+          type: integer
+        weeklyProgress:
+          type: array
+          items:
+            $ref: "#/components/schemas/WeeklyProgressItem"
+
+    WeeklyProgressItem:
+      type: object
+      required: [day, score]
+      properties:
+        day:
+          type: string
+        score:
+          type: number
+
+    ActivityItem:
+      type: object
+      required: [id, type, description, createdAt]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [coding, hr, aptitude, mock, resume, jd]
+        description:
+          type: string
+        score:
+          type: ["number", "null"]
+        createdAt:
+          type: string
+
+    StudyStreak:
+      type: object
+      required: [currentStreak, longestStreak, lastActiveDate, totalDaysActive]
+      properties:
+        currentStreak:
+          type: integer
+        longestStreak:
+          type: integer
+        lastActiveDate:
+          type: string
+        totalDaysActive:
+          type: integer
+
+    PerformanceAnalytics:
+      type: object
+      required: [coding, hr, aptitude, mock]
+      properties:
+        coding:
+          $ref: "#/components/schemas/CategoryPerformance"
+        hr:
+          $ref: "#/components/schemas/CategoryPerformance"
+        aptitude:
+          $ref: "#/components/schemas/CategoryPerformance"
+        mock:
+          $ref: "#/components/schemas/CategoryPerformance"
+
+    CategoryPerformance:
+      type: object
+      required: [avgScore, attempts, improvement]
+      properties:
+        avgScore:
+          type: number
+        attempts:
+          type: integer
+        improvement:
+          type: number
+
+    Resume:
+      type: object
+      required: [id, fileName, atsScore, skills, missingSkills, suggestions, createdAt]
+      properties:
+        id:
+          type: integer
+        fileName:
+          type: string
+        content:
+          type: ["string", "null"]
+        atsScore:
+          type: number
+        skills:
+          type: array
+          items:
+            type: string
+        missingSkills:
+          type: array
+          items:
+            type: string
+        keywordScore:
+          type: number
+        formattingScore:
+          type: number
+        relevanceScore:
+          type: number
+        suggestions:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+
+    ResumeInput:
+      type: object
+      required: [fileName, content]
+      properties:
+        fileName:
+          type: string
+        content:
+          type: string
+        targetRole:
+          type: string
+
+    ResumeSuggestion:
+      type: object
+      required: [id, category, suggestion, priority]
+      properties:
+        id:
+          type: integer
+        category:
+          type: string
+          enum: [skills, formatting, experience, keywords, certifications, projects]
+        suggestion:
+          type: string
+        priority:
+          type: string
+          enum: [high, medium, low]
+
+    CodingQuestion:
+      type: object
+      required: [id, title, difficulty, topic, description, examples, company, isSolved]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        difficulty:
+          type: string
+          enum: [easy, medium, hard]
+        topic:
+          type: string
+        description:
+          type: string
+        examples:
+          type: array
+          items:
+            $ref: "#/components/schemas/CodeExample"
+        company:
+          type: ["string", "null"]
+        starterCode:
+          type: ["string", "null"]
+        isSolved:
+          type: boolean
+        successRate:
+          type: ["number", "null"]
+        tags:
+          type: array
+          items:
+            type: string
+
+    CodeExample:
+      type: object
+      required: [input, output]
+      properties:
+        input:
+          type: string
+        output:
+          type: string
+        explanation:
+          type: ["string", "null"]
+
+    CodingSubmission:
+      type: object
+      required: [code, language]
+      properties:
+        code:
+          type: string
+        language:
+          type: string
+          enum: [javascript, python, java, cpp, typescript]
+
+    CodingResult:
+      type: object
+      required: [passed, score, timeComplexity, spaceComplexity, feedback, testCasesPassed, totalTestCases]
+      properties:
+        passed:
+          type: boolean
+        score:
+          type: number
+        timeComplexity:
+          type: string
+        spaceComplexity:
+          type: string
+        feedback:
+          type: string
+        testCasesPassed:
+          type: integer
+        totalTestCases:
+          type: integer
+        executionTime:
+          type: ["number", "null"]
+
+    TopicSummary:
+      type: object
+      required: [topic, totalQuestions, solvedQuestions, easyCount, mediumCount, hardCount]
+      properties:
+        topic:
+          type: string
+        totalQuestions:
+          type: integer
+        solvedQuestions:
+          type: integer
+        easyCount:
+          type: integer
+        mediumCount:
+          type: integer
+        hardCount:
+          type: integer
+
+    HrQuestion:
+      type: object
+      required: [id, question, category, tips, sampleAnswer]
+      properties:
+        id:
+          type: integer
+        question:
+          type: string
+        category:
+          type: string
+          enum: [self_introduction, strengths_weaknesses, leadership, teamwork, conflict_resolution, career_goals, situational]
+        tips:
+          type: array
+          items:
+            type: string
+        sampleAnswer:
+          type: string
+
+    HrAnswerInput:
+      type: object
+      required: [answer]
+      properties:
+        answer:
+          type: string
+
+    HrFeedback:
+      type: object
+      required: [score, grammarScore, relevanceScore, confidenceScore, positivePoints, improvements, suggestedAnswer]
+      properties:
+        score:
+          type: number
+        grammarScore:
+          type: number
+        relevanceScore:
+          type: number
+        confidenceScore:
+          type: number
+        positivePoints:
+          type: array
+          items:
+            type: string
+        improvements:
+          type: array
+          items:
+            type: string
+        suggestedAnswer:
+          type: string
+
+    AptitudeTest:
+      type: object
+      required: [id, title, category, duration, totalQuestions, difficulty]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        category:
+          type: string
+          enum: [quantitative, logical_reasoning, verbal_ability]
+        duration:
+          type: integer
+        totalQuestions:
+          type: integer
+        difficulty:
+          type: string
+          enum: [easy, medium, hard]
+        description:
+          type: string
+
+    AptitudeAttemptInput:
+      type: object
+      required: [testId]
+      properties:
+        testId:
+          type: integer
+
+    AptitudeAttempt:
+      type: object
+      required: [id, testId, questions, startedAt, status]
+      properties:
+        id:
+          type: integer
+        testId:
+          type: integer
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/AptitudeQuestion"
+        startedAt:
+          type: string
+        status:
+          type: string
+          enum: [in_progress, completed]
+
+    AptitudeQuestion:
+      type: object
+      required: [id, question, options]
+      properties:
+        id:
+          type: integer
+        question:
+          type: string
+        options:
+          type: array
+          items:
+            type: string
+        explanation:
+          type: ["string", "null"]
+
+    AptitudeAnswers:
+      type: object
+      required: [answers]
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: "#/components/schemas/AptitudeAnswerItem"
+
+    AptitudeAnswerItem:
+      type: object
+      required: [questionId, selectedOption]
+      properties:
+        questionId:
+          type: integer
+        selectedOption:
+          type: integer
+
+    AptitudeResult:
+      type: object
+      required: [attemptId, score, correctAnswers, totalQuestions, timeTaken, categoryBreakdown]
+      properties:
+        attemptId:
+          type: integer
+        score:
+          type: number
+        correctAnswers:
+          type: integer
+        totalQuestions:
+          type: integer
+        timeTaken:
+          type: integer
+        categoryBreakdown:
+          type: object
+          additionalProperties:
+            type: number
+
+    AptitudeAttemptSummary:
+      type: object
+      required: [id, testTitle, category, score, completedAt]
+      properties:
+        id:
+          type: integer
+        testTitle:
+          type: string
+        category:
+          type: string
+        score:
+          type: number
+        completedAt:
+          type: string
+
+    MockInterview:
+      type: object
+      required: [id, type, status, createdAt]
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [technical, hr, mixed]
+        status:
+          type: string
+          enum: [in_progress, completed]
+        overallScore:
+          type: ["number", "null"]
+        technicalScore:
+          type: ["number", "null"]
+        communicationScore:
+          type: ["number", "null"]
+        confidenceScore:
+          type: ["number", "null"]
+        problemSolvingScore:
+          type: ["number", "null"]
+        strengths:
+          type: array
+          items:
+            type: string
+        weaknesses:
+          type: array
+          items:
+            type: string
+        recommendations:
+          type: array
+          items:
+            type: string
+        questionsAnswered:
+          type: integer
+        totalQuestions:
+          type: integer
+        currentQuestion:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+        completedAt:
+          type: ["string", "null"]
+
+    MockInterviewInput:
+      type: object
+      required: [type]
+      properties:
+        type:
+          type: string
+          enum: [technical, hr, mixed]
+        difficulty:
+          type: string
+          enum: [easy, medium, hard]
+        targetCompany:
+          type: string
+
+    MockAnswerInput:
+      type: object
+      required: [questionIndex, answer]
+      properties:
+        questionIndex:
+          type: integer
+        answer:
+          type: string
+
+    MockCompleteInput:
+      type: object
+      required: [sessionData]
+      properties:
+        sessionData:
+          type: string
+
+    MockInterviewStep:
+      type: object
+      required: [isComplete, nextQuestion, questionIndex]
+      properties:
+        isComplete:
+          type: boolean
+        nextQuestion:
+          type: ["string", "null"]
+        questionIndex:
+          type: integer
+        feedback:
+          type: ["string", "null"]
+
+    JobDescription:
+      type: object
+      required: [id, title, company, matchScore, requiredSkills, missingSkills, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        company:
+          type: string
+        content:
+          type: ["string", "null"]
+        matchScore:
+          type: number
+        requiredSkills:
+          type: array
+          items:
+            type: string
+        missingSkills:
+          type: array
+          items:
+            type: string
+        matchedSkills:
+          type: array
+          items:
+            type: string
+        experienceRequired:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    JobDescriptionInput:
+      type: object
+      required: [title, company, content]
+      properties:
+        title:
+          type: string
+        company:
+          type: string
+        content:
+          type: string
+
+    LeaderboardEntry:
+      type: object
+      required: [rank, name, score, questionsAttempted, badge]
+      properties:
+        rank:
+          type: integer
+        name:
+          type: string
+        score:
+          type: number
+        questionsAttempted:
+          type: integer
+        badge:
+          type: string
+          enum: [gold, silver, bronze, top10, top50, participant]
+        isCurrentUser:
+          type: boolean
+
+    Bookmark:
+      type: object
+      required: [id, questionType, questionId, title, difficulty, createdAt]
+      properties:
+        id:
+          type: integer
+        questionType:
+          type: string
+          enum: [coding, hr, aptitude]
+        questionId:
+          type: integer
+        title:
+          type: string
+        difficulty:
+          type: ["string", "null"]
+        category:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    BookmarkInput:
+      type: object
+      required: [questionType, questionId, title]
+      properties:
+        questionType:
+          type: string
+          enum: [coding, hr, aptitude]
+        questionId:
+          type: integer
+        title:
+          type: string
+        difficulty:
+          type: string
+        category:
+          type: string
+
+    Tip:
+      type: object
+      required: [id, title, content, category, tags]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        content:
+          type: string
+        category:
+          type: string
+          enum: [technical, behavioral, general, resume, negotiation]
+        tags:
+          type: array
+          items:
+            type: string
+
+    LearningRoadmap:
+      type: object
+      required: [weeks]
+      properties:
+        weeks:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoadmapWeek"
+
+    RoadmapWeek:
+      type: object
+      required: [week, title, topics, resources]
+      properties:
+        week:
+          type: integer
+        title:
+          type: string
+        topics:
+          type: array
+          items:
+            type: string
+        resources:
+          type: array
+          items:
+            type: string
+        isCompleted:
+          type: boolean
+
+    ScheduledInterview:
+      type: object
+      required: [id, company, role, type, scheduledAt, createdAt]
+      properties:
+        id:
+          type: integer
+        company:
+          type: string
+        role:
+          type: string
+        type:
+          type: string
+          enum: [technical, hr, mixed, onsite, phone]
+        scheduledAt:
+          type: string
+        notes:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [upcoming, completed, cancelled]
+        createdAt:
+          type: string
+
+    ScheduledInterviewInput:
+      type: object
+      required: [company, role, type, scheduledAt]
+      properties:
+        company:
+          type: string
+        role:
+          type: string
+        type:
+          type: string
+          enum: [technical, hr, mixed, onsite, phone]
+        scheduledAt:
+          type: string
+        notes:
+          type: string

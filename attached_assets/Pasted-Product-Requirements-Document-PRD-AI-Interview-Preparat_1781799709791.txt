@@ -1,0 +1,844 @@
+Product Requirements Document (PRD)
+
+AI Interview Preparation Platform using MCP
+
+Project Name
+
+InterviewGPT – AI-Powered Interview Preparation Platform
+
+
+---
+
+1. Project Overview
+
+Objective
+
+Develop an AI-powered interview preparation platform that helps students and job seekers prepare for technical, HR, aptitude, and coding interviews through personalized learning, resume analysis, mock interviews, and performance tracking using MCP (Model Context Protocol).
+
+The platform will act as a virtual interviewer capable of accessing multiple specialized MCP servers to provide accurate, personalized, and context-aware interview preparation.
+
+
+---
+
+2. Problem Statement
+
+Candidates face several challenges:
+
+Lack of personalized interview preparation
+
+Difficulty identifying skill gaps
+
+Limited access to mock interviews
+
+No structured feedback mechanism
+
+Poor resume optimization
+
+Inadequate tracking of progress
+
+
+The proposed system solves these challenges through AI-driven assessment and personalized recommendations.
+
+
+---
+
+3. Target Users
+
+Primary Users
+
+College Students
+
+Fresh Graduates
+
+Job Seekers
+
+Career Switchers
+
+
+Secondary Users
+
+Training Institutes
+
+Placement Cells
+
+Corporate Training Teams
+
+
+
+---
+
+4. Goals and Success Metrics
+
+Business Goals
+
+Improve interview readiness
+
+Increase placement success rate
+
+Reduce preparation time
+
+
+User Goals
+
+Get personalized interview questions
+
+Improve coding skills
+
+Optimize resume
+
+Track interview performance
+
+
+Success Metrics
+
+User retention > 70%
+
+Mock interview completion > 80%
+
+Resume analysis accuracy > 90%
+
+User satisfaction > 4.5/5
+
+
+
+---
+
+5. System Architecture
+
+User
+ |
+ v
+Frontend (React)
+ |
+ v
+API Gateway
+ |
+ v
+MCP Client
+ |
+ ------------------------------------------------
+ |         |          |          |             |
+Resume   Coding      HR      Aptitude      Job Analysis
+Server   Server    Server     Server          Server
+ |
+ v
+LLM Engine
+ |
+ v
+Database
+
+
+---
+
+6. Core Modules
+
+Module 1: User Management
+
+Features
+
+Registration
+
+Login
+
+OTP Verification
+
+Password Reset
+
+Profile Management
+
+
+User Data
+
+Name
+
+Email
+
+Phone Number
+
+Education
+
+Skills
+
+Experience
+
+
+Security
+
+JWT Authentication
+
+Password Encryption
+
+Role-Based Access Control
+
+
+
+---
+
+Module 2: Resume Analysis System
+
+Objective
+
+Analyze resumes and identify strengths and weaknesses.
+
+Features
+
+Resume Upload
+
+Supported Formats:
+
+PDF
+
+DOCX
+
+
+Resume Parsing
+
+Extract:
+
+Name
+
+Email
+
+Skills
+
+Education
+
+Experience
+
+Certifications
+
+Projects
+
+
+ATS Score Calculation
+
+Parameters:
+
+Keyword Matching
+
+Formatting
+
+Experience Relevance
+
+Skills Alignment
+
+
+Gap Analysis
+
+Output:
+
+Missing Skills
+
+Missing Certifications
+
+Missing Keywords
+
+
+Improvement Suggestions
+
+Example:
+
+Add Docker
+
+Add AWS
+
+Add Projects
+
+Improve Summary
+
+
+
+---
+
+Module 3: Coding Interview Preparation
+
+Objective
+
+Prepare users for technical coding interviews.
+
+Features
+
+Question Generator
+
+Difficulty Levels:
+
+Easy
+
+Medium
+
+Hard
+
+
+Topics:
+
+Arrays
+
+Strings
+
+Linked Lists
+
+Stacks
+
+Queues
+
+Trees
+
+Graphs
+
+Dynamic Programming
+
+Recursion
+
+Sorting
+
+Searching
+
+
+Coding Playground
+
+Features:
+
+Code Editor
+
+Syntax Highlighting
+
+Multiple Languages
+
+Test Case Execution
+
+
+Automated Evaluation
+
+Checks:
+
+Correctness
+
+Time Complexity
+
+Space Complexity
+
+Edge Cases
+
+
+Leaderboard
+
+Displays:
+
+Rank
+
+Score
+
+Solved Problems
+
+
+
+---
+
+Module 4: HR Interview Preparation
+
+Objective
+
+Prepare users for behavioral interviews.
+
+Features
+
+HR Question Generation
+
+Categories:
+
+Self Introduction
+
+Strengths & Weaknesses
+
+Leadership
+
+Teamwork
+
+Conflict Resolution
+
+Career Goals
+
+
+AI Evaluation
+
+Parameters:
+
+Grammar
+
+Confidence
+
+Relevance
+
+Communication Skills
+
+
+Feedback Generation
+
+Output:
+
+Positive Points
+
+Areas of Improvement
+
+Suggested Answers
+
+
+
+---
+
+Module 5: Mock Interview System
+
+Objective
+
+Simulate real interview experience.
+
+Features
+
+Interview Modes
+
+Technical Interview
+
+HR Interview
+
+Mixed Interview
+
+
+Interview Flow
+
+Question
+ ↓
+User Answer
+ ↓
+LLM Analysis
+ ↓
+Score
+ ↓
+Next Question
+
+Evaluation Metrics
+
+Technical Accuracy
+
+Communication
+
+Confidence
+
+Problem Solving
+
+Clarity
+
+
+Final Report
+
+Contains:
+
+Overall Score
+
+Strengths
+
+Weaknesses
+
+Recommendations
+
+
+
+---
+
+Module 6: Aptitude Assessment
+
+Categories
+
+Quantitative Aptitude
+
+Percentage
+
+Profit and Loss
+
+Time and Work
+
+Probability
+
+
+Logical Reasoning
+
+Puzzles
+
+Coding-Decoding
+
+Blood Relations
+
+
+Verbal Ability
+
+Synonyms
+
+Antonyms
+
+Reading Comprehension
+
+
+Features
+
+Timed Tests
+
+Instant Evaluation
+
+Topic-wise Scores
+
+
+
+---
+
+Module 7: Job Description Analyzer
+
+Features
+
+Upload JD
+
+Formats:
+
+PDF
+
+Text
+
+
+Skill Extraction
+
+Extract:
+
+Skills
+
+Experience
+
+Certifications
+
+
+Match Score
+
+Compare:
+
+Resume
+
+Job Description
+
+
+Generate:
+
+Match Percentage
+
+Missing Skills
+
+
+
+---
+
+Module 8: Learning Recommendation Engine
+
+Objective
+
+Provide personalized learning roadmap.
+
+Input
+
+Resume
+
+Interview Scores
+
+Skill Gaps
+
+
+Output
+
+Example:
+
+Week 1:
+Python Basics
+
+Week 2:
+Data Structures
+
+Week 3:
+SQL
+
+Week 4:
+Mock Interviews
+
+
+---
+
+7. MCP Servers
+
+Resume MCP Server
+
+Responsibilities:
+
+Resume Parsing
+
+ATS Analysis
+
+Skill Extraction
+
+
+
+---
+
+Coding MCP Server
+
+Responsibilities:
+
+Question Generation
+
+Code Evaluation
+
+Complexity Analysis
+
+
+
+---
+
+HR MCP Server
+
+Responsibilities:
+
+HR Question Generation
+
+Answer Evaluation
+
+
+
+---
+
+Aptitude MCP Server
+
+Responsibilities:
+
+Aptitude Question Generation
+
+Test Evaluation
+
+
+
+---
+
+Job Analysis MCP Server
+
+Responsibilities:
+
+JD Parsing
+
+Skill Matching
+
+
+
+---
+
+Recommendation MCP Server
+
+Responsibilities:
+
+Learning Path Generation
+
+Resource Recommendation
+
+
+
+---
+
+8. Database Design
+
+Users Table
+
+Field	Type
+
+user_id	UUID
+name	VARCHAR
+email	VARCHAR
+password	VARCHAR
+
+
+
+---
+
+Resumes Table
+
+Field	Type
+
+resume_id	UUID
+user_id	UUID
+ats_score	FLOAT
+
+
+
+---
+
+Interviews Table
+
+Field	Type
+
+interview_id	UUID
+user_id	UUID
+score	FLOAT
+date	TIMESTAMP
+
+
+
+---
+
+Coding Scores Table
+
+Field	Type
+
+problem_id	UUID
+user_id	UUID
+score	FLOAT
+
+
+
+---
+
+9. Security Requirements
+
+Authentication
+
+JWT Tokens
+
+OAuth Login
+
+
+Authorization
+
+Role-Based Access Control
+
+
+Data Security
+
+AES Encryption
+
+HTTPS
+
+Secure File Storage
+
+
+API Security
+
+Rate Limiting
+
+API Gateway
+
+Input Validation
+
+
+Audit Logs
+
+Login Tracking
+
+Activity Tracking
+
+Error Tracking
+
+
+
+---
+
+10. Non-Functional Requirements
+
+Performance
+
+Response Time < 2 seconds
+
+
+Availability
+
+99.9% Uptime
+
+
+Scalability
+
+10,000+ Concurrent Users
+
+
+Reliability
+
+Automatic Recovery
+
+
+Maintainability
+
+Modular Architecture
+
+
+
+---
+
+11. Technology Stack
+
+Frontend
+
+React.js
+
+Tailwind CSS
+
+
+Backend
+
+Python
+
+FastAPI
+
+
+MCP Framework
+
+MCP Python SDK
+
+
+Database
+
+PostgreSQL
+
+
+AI Models
+
+Llama 3
+
+Mistral
+
+
+Deployment
+
+Docker
+
+Kubernetes
+
+AWS EC2
+
+Nginx
+
+
+
+---
+
+12. Future Enhancements
+
+Voice-based Interviews
+
+Video-based Interviews
+
+Emotion Detection
+
+AI Career Coach
+
+Multi-language Support
+
+Company-Specific Interview Preparation
+
+Placement Analytics Dashboard
+
+AI Resume Builder
+
+
+
+---
+
+Expected Outcome
+
+A complete AI-powered interview preparation ecosystem that analyzes resumes, conducts mock interviews, evaluates coding skills, identifies weaknesses, generates personalized learning plans, and improves the overall placement readiness of students through MCP-based multi-agent architecture.

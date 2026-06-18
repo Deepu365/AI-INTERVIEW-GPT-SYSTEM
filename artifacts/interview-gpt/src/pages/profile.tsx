@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -125,11 +126,11 @@ export default function Profile() {
                         </FormItem>
                       )}
                     />
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
+                    <div className="space-y-2">
+                      <Label>Email</Label>
                       <Input value={profile?.email || ""} disabled className="bg-muted" />
                       <p className="text-[10px] text-muted-foreground">Email cannot be changed</p>
-                    </FormItem>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

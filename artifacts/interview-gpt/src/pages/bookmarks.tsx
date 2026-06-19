@@ -42,6 +42,7 @@ export default function Bookmarks() {
   if (isLoading) return <div className="p-8">Loading bookmarks...</div>;
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50/60 to-zinc-50">
     <div className="p-6 max-w-5xl mx-auto space-y-6">
       <PageHeader
         icon={<Bookmark className="w-7 h-7 text-white" />}
@@ -101,6 +102,7 @@ export default function Bookmarks() {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 }

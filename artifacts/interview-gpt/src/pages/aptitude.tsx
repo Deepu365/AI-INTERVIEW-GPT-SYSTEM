@@ -12,6 +12,7 @@ export default function Aptitude() {
   const { data: history, isLoading: historyLoading } = useGetAptitudeHistory();
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50/60 to-cyan-50">
     <div className="p-6 max-w-6xl mx-auto space-y-6">
       <PageHeader
         icon={<BrainCircuit className="w-7 h-7 text-white" />}
@@ -57,7 +58,7 @@ export default function Aptitude() {
                       </div>
                     </div>
                     <Link href={`/aptitude/${test.id}`}>
-                      <Button className="w-full gap-2">
+                      <Button className="w-full gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-0 hover:opacity-90 shadow-md shadow-emerald-200">
                         <Play className="w-4 h-4" /> Start Test
                       </Button>
                     </Link>
@@ -103,6 +104,7 @@ export default function Aptitude() {
           )}
         </TabsContent>
       </Tabs>
+    </div>
     </div>
   );
 }

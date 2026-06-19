@@ -18,6 +18,7 @@ const features = [
     bg: "from-rose-950/40 to-pink-950/20",
     border: "border-rose-500/20",
     badge: "Most Popular",
+    route: "/resume",
   },
   {
     icon: Video,
@@ -28,6 +29,7 @@ const features = [
     bg: "from-violet-950/40 to-purple-950/20",
     border: "border-violet-500/20",
     badge: "New",
+    route: "/mock",
   },
   {
     icon: Code2,
@@ -38,6 +40,7 @@ const features = [
     bg: "from-blue-950/40 to-cyan-950/20",
     border: "border-blue-500/20",
     badge: "500+ Problems",
+    route: "/coding",
   },
   {
     icon: Map,
@@ -48,16 +51,18 @@ const features = [
     bg: "from-emerald-950/40 to-teal-950/20",
     border: "border-emerald-500/20",
     badge: "Personalized",
+    route: "/roadmap",
   },
   {
     icon: Target,
-    title: "Placement Predictor",
+    title: "Job Match Analyzer",
     desc: "Match your skills against real JDs and see your fit percentage with gap analysis.",
     gradient: "from-amber-500 to-orange-500",
     glow: "shadow-amber-500/25",
     bg: "from-amber-950/40 to-orange-950/20",
     border: "border-amber-500/20",
     badge: "AI-Powered",
+    route: "/jobs",
   },
 ];
 
@@ -175,18 +180,18 @@ export default function Landing() {
               </div>
             </div>
 
-            {/* Right: Human Video Interview Visual */}
+            {/* Right: Laptop Study Illustration */}
             <div className="relative hidden lg:block">
-              {/* Floating score badge */}
-              <div className="absolute -top-5 right-8 z-20 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-2xl shadow-emerald-500/40 px-4 py-2.5 flex items-center gap-2.5">
+              {/* Floating ATS badge */}
+              <div className="absolute -top-5 right-6 z-20 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-2xl shadow-emerald-500/40 px-4 py-2.5 flex items-center gap-2.5 animate-bounce" style={{ animationDuration: "3s" }}>
                 <TrendingUp className="w-5 h-5 text-white" />
                 <div>
-                  <div className="text-[10px] font-semibold text-emerald-100 uppercase tracking-wider">Interview Score</div>
-                  <div className="text-xl font-black text-white leading-none">8.7 / 10</div>
+                  <div className="text-[10px] font-semibold text-emerald-100 uppercase tracking-wider">ATS Score</div>
+                  <div className="text-xl font-black text-white leading-none">92%</div>
                 </div>
               </div>
               {/* Floating offer badge */}
-              <div className="absolute -bottom-3 -left-3 z-20 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl shadow-2xl shadow-amber-500/40 px-4 py-2.5 flex items-center gap-2.5 animate-bounce" style={{ animationDuration: "3.5s" }}>
+              <div className="absolute -bottom-3 -left-3 z-20 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl shadow-2xl shadow-amber-500/40 px-4 py-2.5 flex items-center gap-2.5 animate-bounce" style={{ animationDuration: "4s", animationDelay: "1s" }}>
                 <Award className="w-5 h-5 text-white" />
                 <div>
                   <div className="text-[10px] font-semibold text-amber-100 uppercase tracking-wider">Offer Received!</div>
@@ -194,115 +199,108 @@ export default function Landing() {
                 </div>
               </div>
 
-              {/* Main video call card */}
-              <div className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 rounded-3xl overflow-hidden shadow-2xl border border-white/10 backdrop-blur-sm">
-                {/* Top bar */}
-                <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-slate-900/60">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-red-500" />
-                    <div className="w-2 h-2 rounded-full bg-amber-500" />
-                    <div className="w-2 h-2 rounded-full bg-green-500" />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                    <span className="text-red-400 text-xs font-semibold">● REC</span>
-                    <span className="text-white/30 text-xs ml-2">32:14</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-500/30 rounded-full px-3 py-1">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-emerald-400 text-xs font-semibold">Live Interview</span>
-                  </div>
-                </div>
-
-                {/* Video grid */}
-                <div className="grid grid-cols-2 gap-3 p-4">
-                  {/* Interviewer video */}
-                  <div className="relative bg-gradient-to-br from-indigo-900/80 to-violet-900/60 rounded-2xl aspect-video flex items-center justify-center border border-indigo-500/20 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 to-slate-900" />
-                    <div className="relative flex flex-col items-center gap-2">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/50">
-                        RS
+              {/* Laptop frame */}
+              <div className="relative">
+                {/* Screen bezel */}
+                <div className="bg-gradient-to-b from-slate-700 to-slate-800 rounded-t-2xl p-2.5 shadow-2xl border border-slate-600/50">
+                  {/* Screen content */}
+                  <div className="bg-[#0f172a] rounded-xl overflow-hidden" style={{ minHeight: 340 }}>
+                    {/* Browser chrome */}
+                    <div className="bg-slate-900 px-4 py-2.5 flex items-center gap-3 border-b border-white/10">
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 rounded-full bg-red-500" />
+                        <div className="w-3 h-3 rounded-full bg-amber-500" />
+                        <div className="w-3 h-3 rounded-full bg-emerald-500" />
                       </div>
-                      <div className="text-center">
-                        <div className="text-white text-xs font-semibold">Rahul Sharma</div>
-                        <div className="text-indigo-300 text-[10px]">Google • Senior SDE</div>
+                      <div className="flex-1 bg-slate-800 rounded-md px-3 py-1 text-slate-400 text-[11px] flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                        interviewgpt.app/dashboard
                       </div>
                     </div>
-                    <div className="absolute bottom-2 left-2 bg-black/50 backdrop-blur rounded-full px-2 py-0.5 flex items-center gap-1">
-                      <Mic className="w-2.5 h-2.5 text-green-400" />
-                      <span className="text-[9px] text-white/80">Interviewer</span>
-                    </div>
-                    {/* Sound waves */}
-                    <div className="absolute bottom-2 right-2 flex items-end gap-0.5">
-                      {[3,5,4,6,3,5,4].map((h, i) => (
-                        <div key={i} className="w-0.5 bg-indigo-400 rounded-full animate-pulse" style={{ height: `${h * 2}px`, animationDelay: `${i * 100}ms` }} />
-                      ))}
+                    {/* App interface */}
+                    <div className="flex h-full">
+                      {/* Sidebar */}
+                      <div className="w-12 bg-slate-900/80 border-r border-white/8 flex flex-col items-center py-3 gap-3">
+                        {[
+                          { color: "bg-indigo-500", label: "D" },
+                          { color: "bg-blue-500", label: "C" },
+                          { color: "bg-violet-500", label: "H" },
+                          { color: "bg-emerald-500", label: "A" },
+                          { color: "bg-orange-500", label: "M" },
+                          { color: "bg-rose-500", label: "R" },
+                        ].map((item, i) => (
+                          <div key={i} className={`w-7 h-7 rounded-lg ${item.color} flex items-center justify-center text-white text-[9px] font-black`}>{item.label}</div>
+                        ))}
+                      </div>
+                      {/* Main content */}
+                      <div className="flex-1 p-3 space-y-2.5">
+                        {/* Greeting */}
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="text-white text-xs font-bold">Welcome back, Priya! 👋</div>
+                            <div className="text-slate-400 text-[10px]">Day 28 of your interview prep</div>
+                          </div>
+                          <div className="bg-indigo-600 rounded-lg px-2.5 py-1 text-[10px] font-bold text-white">🔥 12 day streak</div>
+                        </div>
+                        {/* Stats row */}
+                        <div className="grid grid-cols-3 gap-2">
+                          {[
+                            { label: "Problems", val: "47", color: "from-blue-600 to-cyan-600" },
+                            { label: "Mock Interviews", val: "8", color: "from-violet-600 to-purple-600" },
+                            { label: "ATS Score", val: "92%", color: "from-emerald-600 to-teal-600" },
+                          ].map(s => (
+                            <div key={s.label} className={`bg-gradient-to-br ${s.color} rounded-lg p-2 text-center`}>
+                              <div className="text-white font-black text-sm">{s.val}</div>
+                              <div className="text-white/70 text-[9px]">{s.label}</div>
+                            </div>
+                          ))}
+                        </div>
+                        {/* Weekly chart bar preview */}
+                        <div className="bg-white/5 rounded-lg p-2.5 border border-white/8">
+                          <div className="text-white/60 text-[9px] font-semibold mb-2 uppercase tracking-wider">Weekly Progress</div>
+                          <div className="flex items-end gap-1 h-10">
+                            {[40, 65, 50, 80, 55, 90, 75].map((h, i) => (
+                              <div key={i} className="flex-1 rounded-sm bg-gradient-to-t from-indigo-600 to-violet-500 opacity-80" style={{ height: `${h}%` }} />
+                            ))}
+                          </div>
+                          <div className="flex justify-between mt-1">
+                            {["M","T","W","T","F","S","S"].map((d, i) => (
+                              <div key={i} className="flex-1 text-center text-slate-500 text-[8px]">{d}</div>
+                            ))}
+                          </div>
+                        </div>
+                        {/* Recent activity */}
+                        <div className="space-y-1.5">
+                          {[
+                            { icon: "🟢", text: "Solved: Two Sum (Easy)", time: "2m ago" },
+                            { icon: "🎯", text: "Mock Interview: 8.5/10", time: "1h ago" },
+                            { icon: "📄", text: "Resume ATS: 92%", time: "3h ago" },
+                          ].map((item, i) => (
+                            <div key={i} className="flex items-center gap-2 bg-white/4 rounded-lg px-2.5 py-1.5">
+                              <span className="text-sm">{item.icon}</span>
+                              <span className="text-white/70 text-[10px] flex-1">{item.text}</span>
+                              <span className="text-white/30 text-[9px]">{item.time}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Candidate video */}
-                  <div className="relative bg-gradient-to-br from-blue-900/80 to-cyan-900/60 rounded-2xl aspect-video flex items-center justify-center border border-blue-500/20 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-950 to-slate-900" />
-                    <div className="relative flex flex-col items-center gap-2">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-500/50">
-                        You
-                      </div>
-                      <div className="text-center">
-                        <div className="text-white text-xs font-semibold">You</div>
-                        <div className="text-blue-300 text-[10px]">Candidate</div>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-2 left-2 bg-black/50 backdrop-blur rounded-full px-2 py-0.5 flex items-center gap-1">
-                      <Camera className="w-2.5 h-2.5 text-blue-400" />
-                      <span className="text-[9px] text-white/80">On camera</span>
-                    </div>
-                  </div>
                 </div>
+                {/* Laptop base */}
+                <div className="bg-gradient-to-b from-slate-600 to-slate-700 h-4 rounded-b-xl shadow-xl mx-2" />
+                {/* Hinge */}
+                <div className="bg-slate-800 h-1 mx-8 rounded-full" />
+                {/* Bottom stand */}
+                <div className="bg-gradient-to-b from-slate-700 to-slate-800 h-3 rounded-b-full mx-4 shadow-2xl shadow-black/50" />
+              </div>
 
-                {/* Current question */}
-                <div className="mx-4 mb-3 bg-white/5 border border-white/10 rounded-xl p-3.5">
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <MessageSquare className="w-3.5 h-3.5 text-indigo-400" />
-                    <span className="text-indigo-400 text-[10px] font-bold uppercase tracking-wider">Current Question</span>
-                    <span className="ml-auto text-white/30 text-[10px]">Q3 of 8</span>
-                  </div>
-                  <p className="text-white/85 text-xs leading-relaxed">
-                    "Design a URL shortener like bit.ly. Walk me through your system design approach."
-                  </p>
+              {/* Person studying - abstract figure below laptop */}
+              <div className="absolute -right-4 top-1/2 -translate-y-1/2 z-10">
+                <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-full flex items-center justify-center shadow-2xl shadow-indigo-500/50 border-4 border-slate-900">
+                  <span className="text-2xl">👩‍💻</span>
                 </div>
-
-                {/* AI feedback bar */}
-                <div className="grid grid-cols-3 gap-2 px-4 pb-4">
-                  {[
-                    { label: "Communication", val: 88, color: "from-violet-500 to-purple-500" },
-                    { label: "Technical Depth", val: 92, color: "from-blue-500 to-cyan-500" },
-                    { label: "Confidence", val: 76, color: "from-emerald-500 to-teal-500" },
-                  ].map(m => (
-                    <div key={m.label} className="bg-white/5 rounded-lg p-2 border border-white/8">
-                      <div className={`text-base font-black bg-gradient-to-r ${m.color} bg-clip-text text-transparent`}>{m.val}%</div>
-                      <div className="text-white/35 text-[9px] mb-1">{m.label}</div>
-                      <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                        <div className={`h-full bg-gradient-to-r ${m.color} rounded-full`} style={{ width: `${m.val}%` }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Controls bar */}
-                <div className="flex items-center justify-center gap-3 px-4 pb-4">
-                  <button className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
-                    <Mic className="w-4 h-4 text-white" />
-                  </button>
-                  <button className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
-                    <Camera className="w-4 h-4 text-white" />
-                  </button>
-                  <button className="w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-colors shadow-lg shadow-red-500/40">
-                    <MicOff className="w-4 h-4 text-white" />
-                  </button>
-                  <button className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
-                    <BarChart3 className="w-4 h-4 text-white" />
-                  </button>
-                </div>
+                <div className="mt-1.5 bg-indigo-600/90 text-white text-[9px] font-bold px-2 py-0.5 rounded-full text-center whitespace-nowrap">Studying now</div>
               </div>
             </div>
           </div>
@@ -349,7 +347,7 @@ export default function Landing() {
             {features.map((f) => {
               const Icon = f.icon;
               return (
-                <Link href={isAuthenticated ? "/dashboard" : "/signup"} key={f.title}>
+                <Link href={isAuthenticated ? f.route : "/signup"} key={f.title}>
                   <div className={`group relative bg-gradient-to-br ${f.bg} border ${f.border} rounded-2xl p-6 hover:scale-[1.02] transition-all duration-200 cursor-pointer overflow-hidden`}>
                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-white/5 to-transparent`} />
                     <div className={`absolute -top-6 -right-6 w-24 h-24 rounded-full bg-gradient-to-br ${f.gradient} opacity-10 blur-2xl group-hover:opacity-20 transition-opacity`} />

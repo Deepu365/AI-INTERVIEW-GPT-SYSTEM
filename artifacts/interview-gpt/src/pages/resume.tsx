@@ -39,6 +39,7 @@ export default function Resume() {
   };
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50/60 to-fuchsia-50">
     <div className="p-6 max-w-6xl mx-auto space-y-6">
       <PageHeader
         icon={<FileText className="w-7 h-7 text-white" />}
@@ -164,6 +165,7 @@ export default function Resume() {
         )}
       </div>
       </div>
+    </div>
     </div>
   );
 }

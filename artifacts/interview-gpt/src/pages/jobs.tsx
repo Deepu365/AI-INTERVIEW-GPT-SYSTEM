@@ -32,6 +32,7 @@ export default function Jobs() {
   };
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-blue-50/60 to-indigo-50">
     <div className="p-6 max-w-6xl mx-auto space-y-6">
       <PageHeader
         icon={<Briefcase className="w-7 h-7 text-white" />}
@@ -133,6 +134,7 @@ export default function Jobs() {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

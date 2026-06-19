@@ -32,6 +32,7 @@ export default function Hr() {
   const selectedQuestion = questions?.find(q => q.id === selectedQuestionId);
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50/60 to-fuchsia-50">
     <div className="p-6 max-w-6xl mx-auto flex flex-col gap-4" style={{ height: 'calc(100vh - 0px)' }}>
       <PageHeader
         icon={<Users className="w-7 h-7 text-white" />}
@@ -177,6 +178,7 @@ export default function Hr() {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

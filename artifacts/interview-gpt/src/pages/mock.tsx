@@ -29,6 +29,7 @@ export default function Mock() {
   };
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50/60 to-yellow-50">
     <div className="p-6 max-w-6xl mx-auto space-y-6">
       <PageHeader
         icon={<Video className="w-7 h-7 text-white" />}
@@ -143,6 +144,7 @@ export default function Mock() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }

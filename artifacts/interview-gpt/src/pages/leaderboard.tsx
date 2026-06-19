@@ -22,6 +22,7 @@ export default function Leaderboard() {
   };
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-yellow-50/60 to-orange-50">
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <PageHeader
         icon={<Trophy className="w-7 h-7 text-white" />}
@@ -93,6 +94,7 @@ export default function Leaderboard() {
           </Card>
         </TabsContent>
       </Tabs>
+    </div>
     </div>
   );
 }

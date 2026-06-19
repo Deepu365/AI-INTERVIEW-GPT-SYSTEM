@@ -8,6 +8,7 @@ export default function Roadmap() {
   const { data: roadmap, isLoading } = useGetLearningRoadmap();
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-violet-50/60 to-purple-50">
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <PageHeader
         icon={<Map className="w-7 h-7 text-white" />}
@@ -80,6 +81,7 @@ export default function Roadmap() {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -64,6 +64,7 @@ export default function Schedule() {
   };
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50/60 to-green-50">
     <div className="p-6 max-w-6xl mx-auto space-y-6">
       <PageHeader
         icon={<CalendarIcon className="w-7 h-7 text-white" />}
@@ -196,6 +197,7 @@ export default function Schedule() {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }

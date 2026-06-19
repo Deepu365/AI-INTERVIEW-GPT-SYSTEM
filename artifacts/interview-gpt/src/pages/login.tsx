@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { BrainCircuit, Mail, Lock, Eye, EyeOff, ArrowRight, Code2, Users, Trophy, Zap } from "lucide-react";
+import { BrainCircuit, Mail, Lock, Eye, EyeOff, ArrowRight, Code2, Users, Trophy, Zap, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-auth";
 
 export default function Login() {
-  const [, navigate] = useLocation();
+  const [location, navigate] = useLocation();
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const justRegistered = new URLSearchParams(window.location.search).get("registered") === "1";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,6 +90,12 @@ export default function Login() {
 
           {/* Card */}
           <div className="bg-white rounded-3xl shadow-xl shadow-indigo-100/60 border border-indigo-100/80 p-8">
+            {justRegistered && (
+              <div className="flex items-center gap-2.5 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl px-4 py-3 mb-5 text-sm font-medium">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
+                Account created! Sign in to get started.
+              </div>
+            )}
             <div className="mb-7">
               <h1 className="text-2xl font-bold text-gray-900 mb-1.5">Sign in to your account</h1>
               <p className="text-sm text-gray-500">

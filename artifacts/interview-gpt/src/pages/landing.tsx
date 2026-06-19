@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/hooks/use-auth";
 
 const features = [
   {
@@ -76,6 +77,7 @@ const steps = [
 ];
 
 export default function Landing() {
+  const { isAuthenticated } = useAuth();
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
       {/* Navbar */}
@@ -93,54 +95,166 @@ export default function Landing() {
             <a href="#testimonials" className="hover:text-indigo-600 transition-colors">Reviews</a>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/login">
-              <Button variant="ghost" size="sm" className="text-gray-700 hover:text-indigo-600 font-medium">Log In</Button>
-            </Link>
-            <Link href="/signup">
-              <Button size="sm" className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-0 hover:opacity-90 shadow-md shadow-indigo-200 font-semibold">
-                Get Started Free
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <Link href="/dashboard">
+                <Button size="sm" className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-0 hover:opacity-90 shadow-md shadow-indigo-200 font-semibold">
+                  Go to Dashboard
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="ghost" size="sm" className="text-gray-700 hover:text-indigo-600 font-medium">Log In</Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="sm" className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-0 hover:opacity-90 shadow-md shadow-indigo-200 font-semibold">
+                    Get Started Free
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="relative overflow-hidden pt-16 pb-28">
+      <section className="relative overflow-hidden pt-12 pb-16">
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-100/60 rounded-full blur-3xl" />
-          <div className="absolute top-10 right-1/4 w-96 h-96 bg-violet-100/50 rounded-full blur-3xl" />
-          <div className="absolute -bottom-20 left-1/2 w-72 h-72 bg-cyan-100/40 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-indigo-100/50 rounded-full blur-3xl" />
+          <div className="absolute top-10 right-0 w-96 h-96 bg-violet-100/40 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-1/2 w-72 h-72 bg-cyan-100/30 rounded-full blur-3xl" />
         </div>
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-200 rounded-full px-4 py-1.5 mb-8">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-            <span className="text-xs font-semibold text-indigo-700 uppercase tracking-wide">AI-Powered Interview Preparation</span>
-          </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-5 leading-[1.08]">
-            Crack Your Dream Job with<br />
-            <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">AI-Powered Interviews</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-4 leading-relaxed">
-            Resume Analysis • Mock Interviews • Career Coach • Placement Predictor
-          </p>
-          <p className="text-base text-gray-400 max-w-xl mx-auto mb-10">
-            Everything you need to land your dream job at Google, Amazon, Microsoft & 500+ top companies.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
-            <Link href="/signup">
-              <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-0 hover:opacity-90 shadow-xl shadow-indigo-200/60 px-8 h-13 text-base font-bold rounded-xl">
-                Get Started <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-            <Button size="lg" variant="outline" className="px-8 h-13 text-base border-gray-200 rounded-xl hover:border-indigo-300 hover:text-indigo-600 font-semibold">
-              <PlayCircle className="w-5 h-5 mr-2 text-indigo-500" /> Watch Demo
-            </Button>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400">
-            <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> No credit card required</div>
-            <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Free forever plan</div>
-            <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> 500+ practice questions</div>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text & CTA */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-200 rounded-full px-4 py-1.5 mb-7">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                <span className="text-xs font-semibold text-indigo-700 uppercase tracking-wide">AI-Powered Interview Preparation</span>
+              </div>
+              <h1 className="text-5xl lg:text-6xl font-extrabold tracking-tight mb-5 leading-[1.08]">
+                Crack Your<br />Dream Job with<br />
+                <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">AI-Powered Interviews</span>
+              </h1>
+              <p className="text-lg text-gray-500 mb-3 leading-relaxed font-medium">
+                Resume Analysis • Mock Interviews • Career Coach • Placement Predictor
+              </p>
+              <p className="text-base text-gray-400 mb-8 max-w-md">
+                Everything you need to land your dream job at Google, Amazon, Microsoft & 500+ top companies.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 mb-7">
+                {isAuthenticated ? (
+                  <Link href="/dashboard">
+                    <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-0 hover:opacity-90 shadow-xl shadow-indigo-200/60 px-8 h-12 text-base font-bold rounded-xl">
+                      Go to Dashboard <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/signup">
+                    <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-0 hover:opacity-90 shadow-xl shadow-indigo-200/60 px-8 h-12 text-base font-bold rounded-xl">
+                      Get Started Free <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
+                )}
+                <Button size="lg" variant="outline" className="px-8 h-12 text-base border-gray-200 rounded-xl hover:border-indigo-300 hover:text-indigo-600 font-semibold">
+                  <PlayCircle className="w-5 h-5 mr-2 text-indigo-500" /> Watch Demo
+                </Button>
+              </div>
+              <div className="flex flex-wrap items-center gap-5 text-sm text-gray-400">
+                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> No credit card required</div>
+                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Free forever plan</div>
+                <div className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> 500+ questions</div>
+              </div>
+            </div>
+
+            {/* Right: AI Interview Visual */}
+            <div className="relative hidden lg:block">
+              {/* Floating badges */}
+              <div className="absolute -top-4 -left-4 z-20 bg-white rounded-2xl shadow-lg border border-gray-100 px-3 py-2 flex items-center gap-2 animate-bounce" style={{ animationDuration: "3s" }}>
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-gray-800">ATS Score</div>
+                  <div className="text-lg font-black text-emerald-600 leading-none">92%</div>
+                </div>
+              </div>
+              <div className="absolute -bottom-4 -right-2 z-20 bg-white rounded-2xl shadow-lg border border-gray-100 px-3 py-2 flex items-center gap-2 animate-bounce" style={{ animationDuration: "4s", animationDelay: "1s" }}>
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+                  <Award className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-gray-800">Interview Score</div>
+                  <div className="text-lg font-black text-amber-600 leading-none">8.7/10</div>
+                </div>
+              </div>
+
+              {/* Main card */}
+              <div className="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-3xl p-6 shadow-2xl border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-violet-500/20 rounded-full blur-2xl" />
+                <div className="relative">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
+                        <BrainCircuit className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-white font-bold text-sm">AI Mock Interview</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-emerald-500/20 text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-full border border-emerald-500/30">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Live
+                    </div>
+                  </div>
+                  {/* Interview type tabs */}
+                  <div className="flex gap-2 mb-5">
+                    {["Technical", "HR", "Coding"].map((t, i) => (
+                      <span key={t} className={`text-xs px-3 py-1 rounded-full font-semibold ${i === 0 ? "bg-indigo-500 text-white" : "bg-white/10 text-white/50"}`}>{t}</span>
+                    ))}
+                  </div>
+                  {/* AI message bubble */}
+                  <div className="bg-white/10 rounded-2xl rounded-tl-sm p-4 mb-3 border border-white/10">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center">
+                        <BrainCircuit className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="text-indigo-300 text-xs font-semibold">AI Interviewer</span>
+                    </div>
+                    <p className="text-white/90 text-sm leading-relaxed">
+                      "Tell me about a time when you had to optimize a slow database query in production. Walk me through your approach."
+                    </p>
+                  </div>
+                  {/* User response bubble */}
+                  <div className="bg-indigo-600/30 rounded-2xl rounded-tr-sm p-4 mb-5 border border-indigo-500/20 ml-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center text-white font-bold text-[10px]">You</div>
+                      <span className="text-blue-300 text-xs font-semibold">Your Answer</span>
+                      <span className="ml-auto text-[10px] text-white/40">STAR method ✓</span>
+                    </div>
+                    <p className="text-white/80 text-xs leading-relaxed">
+                      "In my last role, I identified an N+1 query issue affecting checkout load times. I used query profiling to isolate the bottleneck, then refactored using eager loading..."
+                    </p>
+                  </div>
+                  {/* Feedback scores */}
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { label: "Clarity", score: 9, color: "from-blue-500 to-cyan-500" },
+                      { label: "Technical", score: 8, color: "from-violet-500 to-purple-500" },
+                      { label: "Confidence", score: 7, color: "from-emerald-500 to-teal-500" },
+                    ].map((m) => (
+                      <div key={m.label} className="bg-white/5 rounded-xl p-2.5 border border-white/10 text-center">
+                        <div className={`text-xl font-black bg-gradient-to-r ${m.color} bg-clip-text text-transparent`}>{m.score}</div>
+                        <div className="text-white/40 text-[10px] font-medium">{m.label}</div>
+                        <div className="mt-1.5 h-1 bg-white/10 rounded-full overflow-hidden">
+                          <div className={`h-full bg-gradient-to-r ${m.color} rounded-full`} style={{ width: `${m.score * 10}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

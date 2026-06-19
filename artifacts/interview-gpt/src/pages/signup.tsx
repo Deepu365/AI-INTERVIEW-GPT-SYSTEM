@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { BrainCircuit, Mail, Lock, User, Eye, EyeOff, ArrowRight, CheckCircle2, Star, Code2, BrainCog, FileText } from "lucide-react";
+import { BrainCircuit, Mail, Lock, User, Eye, EyeOff, ArrowRight, CheckCircle2, Star, Code2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAuth } from "@/hooks/use-auth";
 
 const perks = [
   "500+ coding problems from top companies",
@@ -33,8 +32,7 @@ export default function Signup() {
     if (password.length < 6) { setError("Password must be at least 6 characters."); return; }
     setLoading(true);
     await new Promise(r => setTimeout(r, 900));
-    login(email, name);
-    navigate("/dashboard");
+    navigate("/login?registered=1");
   };
 
   return (

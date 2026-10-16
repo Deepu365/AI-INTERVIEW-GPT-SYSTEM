@@ -1,4 +1,4 @@
-import { pgTable, text, serial, timestamp, real, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, real, integer, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
@@ -19,8 +19,8 @@ export const mockInterviewsTable = pgTable("mock_interviews", {
   questionsAnswered: integer("questions_answered").notNull().default(0),
   totalQuestions: integer("total_questions").notNull().default(5),
   currentQuestion: text("current_question"),
-  questions: text("questions").notNull().default("[]"),
-  answers: text("answers").notNull().default("[]"),
+  questions: jsonb("questions").$type<string[]>().notNull().default([]),
+  answers: jsonb("answers").$type<{ questionIndex: number; answer: string }[]>().notNull().default([]),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   completedAt: timestamp("completed_at", { withTimezone: true }),
 });

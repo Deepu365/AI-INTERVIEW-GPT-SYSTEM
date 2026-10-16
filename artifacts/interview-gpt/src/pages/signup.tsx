@@ -4,6 +4,7 @@ import { BrainCircuit, Mail, Lock, User, Eye, EyeOff, ArrowRight, CheckCircle2, 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/use-auth";
 
 const perks = [
   "500+ coding problems from top companies",

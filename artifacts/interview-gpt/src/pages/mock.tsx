@@ -41,7 +41,7 @@ export default function Mock() {
         actions={
           <Dialog>
             <DialogTrigger asChild>
-              <button className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-semibold text-sm px-4 py-2 rounded-xl border border-white/30 transition-colors">
+              <button className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm px-4 py-2 rounded-xl transition-colors">
                 <PlayCircle className="w-4 h-4" /> Start New Session
               </button>
             </DialogTrigger>
@@ -148,3 +148,4 @@ export default function Mock() {
     </div>
   );
 }
+

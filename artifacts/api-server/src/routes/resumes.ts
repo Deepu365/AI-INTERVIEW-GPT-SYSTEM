@@ -7,7 +7,7 @@ import { CreateResumeBody, GetResumeParams, DeleteResumeParams, GetResumeSuggest
 const router = Router();
 
 function analyzeResume(content: string, targetRole?: string) {
-  const skills = [];
+  const skills:string[] = [];
   const allSkills = ["Python", "JavaScript", "TypeScript", "React", "Node.js", "Java", "C++", "SQL", "Docker", "AWS", "Git", "MongoDB", "PostgreSQL", "Redis", "GraphQL", "REST API", "Machine Learning", "TensorFlow"];
   const lower = content.toLowerCase();
   for (const skill of allSkills) {
